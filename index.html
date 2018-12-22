@@ -1,72 +1,98 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>实用工具</title>
- <script>
- var hour = document.getElementById('hour');//时针
-var minute = document.getElementById('minute');//分针
-var second = document.getElementById('second');//秒针
-var myClock = document.getElementById('clock');//时钟
-
-//TODO step2: 获取当前时间,把指针放在正确的位置
-function clock(){
-     var date = new Date();//获取当前时间
-    //时(0-23) 分(0-59)秒(0-59)
-     //计算转动角度
-    var hourDeg = date.getHours()*360/12;
-     var minuteDeg = date.getMinutes()*360/60;
-     var secondDeg = date.getSeconds()*360/60;
-     //console.log(hourDeg, minuteDeg, secondDeg);
-     //设置指针
-    hour.style.transform = 'rotate('+hourDeg+'deg)';
-     minute.style.transform = 'rotate('+minuteDeg+'deg)';
-     second.style.transform = 'rotate('+secondDeg+'deg)';
- }
- //初始化执行一次
-clock();
- //TODO step3: 设置定时器
-setInterval(clock,1000);
-
- /***
-  * 圆半径坐标计算：
- * x = pointX + r*cos(angle);
-  * y = pointY + r*sin(angle);
-  * */
- var pointX = 200;
- var pointY = 200;
- var r = 150;
- //TODO step4: 画时钟数字
-function drawNumber(){
-     var deg = Math.PI*2/12;//360°
-     for (var i = 1; i <= 12; i++) {
-         //计算每格的角度
-        var angle = deg*i;
-         //计算圆上的坐标
-        var x = pointX + r*Math.cos(angle);
-         var y = pointY + r*Math.sin(angle);
-         //创建div,写入数字
-        var number = document.createElement('div');
-         number.className = 'number';
-         number.innerHTML = i;
-         //减去自身的一半, 让div的中心点在圆弧上
-        number.style.left = x - 25 + 'px';
-         number.style.top = y - 25  + 'px';
-         //添加到页面
-        myClock.appendChild(number);
-     }
- }
- drawNumber();
+<!doctype html>  
+<html>  
+<head>  
+<meta charset="utf-8">  
+<title>实用工具</title>  
+<style>  
+body {  
+    padding-top: 40px;  
+}  
+#main {  
+    margin: auto;  
+    text-align: center;  
+    width: 300px;  
+    height: 200px;   
+    background-color: #0CC;  
+}  
+#show_time0,#show_time {  
+width:300px;
+height:100px;
+    color: #FFF;  
+}  
+</style>  
+</head>  
+  
+<body>  
+<div id="main">  
+<div id="show_time0" style="">
+<script>
+//这里就一句话就可以显示时间，但不是我想要的最理想结果
+ setInterval("show_time0.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);  
 </script>
-</head>
-<body>
-
-
- /***
-  * 时钟:
-  * 1> 旋转: rotate(90deg)
-  * 2> 旋转中心点: transform-origin
-  * */
- //TODO step1: 获取时钟的指针
-
-</body>
-</html>
+ 
+ 
+</div>
+ 
+ 
+ 
+ 
+ 
+ 
+<div id="show_time">  
+<script>  
+//这里代码多了几行，但是不会延迟显示，速度比较好，格式可以自定义，是理想的时间显示
+setInterval("fun(show_time)",1);
+function fun(timeID){ 
+var date = new Date();  //创建对象  
+var y = date.getFullYear();     //获取年份  
+var m =date.getMonth()+1;   //获取月份  返回0-11  
+var d = date.getDate(); // 获取日  
+var w = date.getDay();   //获取星期几  返回0-6   (0=星期天) 
+var ww = ' 星期'+'日一二三四五六'.charAt(new Date().getDay()) ;//星期几
+var h = date.getHours();  //时
+var minute = date.getMinutes()  //分
+var s = date.getSeconds(); //秒
+var sss = date.getMilliseconds() ; //毫秒
+if(m<10){
+m = "0"+m;
+}
+if(d<10){
+d = "0"+d;
+}
+if(h<10){
+h = "0"+h;
+}
+ 
+ 
+if(minute<10){
+minute = "0"+minute;
+}
+ 
+ 
+if(s<10){
+s = "0"+s;
+}
+ 
+ 
+if(sss<10){
+sss = "00"+sss;
+}else if(sss<100){
+sss = "0"+sss;
+}
+ 
+ 
+document.getElementById(timeID.id).innerHTML =  y+"-"+m+"-"+d+"   "+h+":"+minute+":"+s+"."+sss+"  "+ww;
+//document.write(y+"-"+m+"-"+d+"   "+h+":"+minute+":"+s);  
+  }
+</script>  
+</div>  
+ 
+ 
+ 
+ 
+ 
+ 
+</div>  
+</body>  
+  
+</html>  
