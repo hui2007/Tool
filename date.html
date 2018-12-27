@@ -1,0 +1,121 @@
+<!doctype html>
+  2 <html>
+  3 
+  4     <head>
+  5         <meta charset="utf-8">
+  6         <title>日历</title>
+  7         <style>
+  8             * {margin: 0;padding: 0}
+  9             #calendar {width: 210px;margin: 100px auto;overflow: hidden;border: 1px solid #000;padding: 20px;position: relative}
+ 10             #calendar h4 {text-align: center;margin-bottom: 10px}
+ 11             #calendar .a1 {position: absolute;top: 20px;left: 20px;}
+ 12             #calendar .a2 {position: absolute;top: 20px;right: 20px;}
+ 13             #calendar .week {height: 30px;line-height: 20px;border-bottom: 1px solid #000;margin-bottom: 10px}
+ 14             #calendar .week li {float: left;width: 30px;height: 30px;text-align: center;list-style: none;}
+ 15             #calendar .dateList {overflow: hidden;clear: both}
+ 16             #calendar .dateList li {float: left;width: 30px;height: 30px;text-align: center;line-height: 30px;list-style: none;}
+ 17             #calendar .dateList .ccc {color: #ccc;}
+ 18             #calendar .dateList .red {background: #F90;color: #fff;}
+ 19             #calendar .dateList .sun {color: #f00;}
+ 20         </style>
+ 21         <script src="js/jquery-1.11.3.min.js"></script>
+ 22         <script>
+ 23             $(function() {
+ 24 
+ 25                 //必要的数据
+ 26                 //今天的年 月 日 ；本月的总天数；本月第一天是周几？？？
+ 27                 var iNow=0;
+ 28                 
+ 29                 function run(n) {
+ 30 
+ 31                     var oDate = new Date(); //定义时间
+ 32                     oDate.setMonth(oDate.getMonth()+n);//设置月份
+ 33                     var year = oDate.getFullYear(); //年
+ 34                     var month = oDate.getMonth(); //月
+ 35                     var today = oDate.getDate(); //日
+ 36 
+ 37                     //计算本月有多少天
+ 38                     var allDay = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+ 39 
+ 40                     //判断闰年
+ 41                     if(month == 1) {
+ 42                         if(year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+ 43                             allDay = 29;
+ 44                         }
+ 45                     }
+ 46 
+ 47                     //判断本月第一天是星期几
+ 48                     oDate.setDate(1); //时间调整到本月第一天
+ 49                     var week = oDate.getDay(); //读取本月第一天是星期几
+ 50 
+ 51                     //console.log(week);
+ 52                   $(".dateList").empty();//每次清空
+ 53                     //插入空白
+ 54 
+ 55                     for(var i = 0; i < week; i++) {
+ 56                         $(".dateList").append("<li></li>");
+ 57                     }
+ 58 
+ 59                     //日期插入到dateList
+ 60                     for(var i = 1; i <= allDay; i++) {
+ 61                         $(".dateList").append("<li>" + i + "</li>")
+ 62                     }
+ 63                     //标记颜色=====================
+ 64                     $(".dateList li").each(function(i, elm){
+ 65                         //console.log(index,elm);
+ 66                         var val = $(this).text();
+ 67                         //console.log(val);
+ 68                         if (n==0) {
+ 69                             if(val<today){
+ 70                             $(this).addClass('ccc')
+ 71                         }else if(val==today){
+ 72                             $(this).addClass('red')
+ 73                         }else if(i%7==0  ||  i%7==6   ){
+ 74                             $(this).addClass('sun')
+ 75                         }
+ 76                         }else if(n<0){
+ 77                             $(this).addClass('ccc')
+ 78                         }else if(i%7==0  ||  i%7==6   ){
+ 79                             $(this).addClass('sun')
+ 80                         }
+ 81                     });
+ 82 
+ 83                     //定义标题日期
+ 84                     $("#calendar h4").text(year + "年" + (month + 1) + "月");
+ 85                 };
+ 86                 run(0);
+ 87                 
+ 88                 $(".a1").click(function(){
+ 89                     iNow--;
+ 90                     run(iNow);
+ 91                 });
+ 92                 
+ 93                 $(".a2").click(function(){
+ 94                     iNow++;
+ 95                     run(iNow);
+ 96                 })
+ 97             });
+ 98         </script>
+ 99     </head>
+100 
+101     <body>
+102         <div id="calendar">
+103             <h4>2013年10月</h4>
+104             <a href="##" class="a1">上月</a>
+105             <a href="##" class="a2">下月</a>
+106             <ul class="week">
+107                 <li>日</li>
+108                 <li>一</li>
+109                 <li>二</li>
+110                 <li>三</li>
+111                 <li>四</li>
+112                 <li>五</li>
+113                 <li>六</li>
+114 
+115             </ul>
+116             <ul class="dateList"></ul>
+117         </div>
+118 
+119     </body>
+120 
+121 </html>
