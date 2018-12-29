@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>JavaScript万年历 带农历、时间和属相等功能DEMO演示</title>
 
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/style_date.css">
 <script type="text/javascript" src="js/main.js"></script>
 
 </head>
@@ -90,29 +90,29 @@
                         <td> 
                         <!-- 选择年份菜单 -->
                           <div class="year_select">
-                              <span onClick="BtN('year_d')"><img src="img/left.png"></span>
+                              <span onClick="BtN('year_d')"><img src="image/left.png"></span>
                                 <select onChange="chaCld()" name="SY">
                                   <script>
                                      for(i=1900;i<2050;i++) 
                                     document.write('<option>'+i+"年")
                                   </script>
                                 </select> 
-                              <span onClick="BtN('year_a')"><img src="img/right.png"></span> 
+                              <span onClick="BtN('year_a')"><img src="image/right.png"></span> 
                           </div>
                           <!-- 回到当天菜单 -->
                           <div  class="home_select">
-                               <span onClick="BtN('')"><img src="img/2.png" style="width:26px;height:26px"></span>
+                               <span onClick="BtN('')"><img src="image/2.png" style="width:26px;height:26px"></span>
                           </div>
 
                           <!-- 选择月份菜单 -->
                               <div style="display:inline-block;">
-                                  <span onClick="BtN('month_d')"><img src="img/left.png"></span>
+                                  <span onClick="BtN('month_d')"><img src="image/left.png"></span>
                                    <select onChange="chaCld()" name="SM">
                                     <script>
                                     for(i=1;i<13;i++) document.write('<option>'+i+"月")
                                     </script>
                                     </select> 
-                                  <span onClick="BtN('month_a')"><img src="img/right.png"></span>
+                                  <span onClick="BtN('month_a')"><img src="image/right.png"></span>
                               </div>
                            </td>
                        </tr>
